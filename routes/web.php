@@ -27,6 +27,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('clasification/get-list', [\App\Http\Controllers\ClasificationController::class, 'getDataList'])->name('clasification.getDataList');
     Route::resource('clasification', \App\Http\Controllers\ClasificationController::class);
+
+    Route::get('category/get-list', [\App\Http\Controllers\CategoryController::class, 'getDataList'])->name('category.getDataList');
+    Route::resource('category', \App\Http\Controllers\CategoryController::class);
 });
 
 require __DIR__ . '/auth.php';
