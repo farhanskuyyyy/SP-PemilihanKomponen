@@ -22,7 +22,7 @@
                         </span>
                         <i class="bi bi-chevron-down small"></i>
                     </a>
-                    <div class="collapse {{ request()->routeIs('users.*') || request()->routeIs('component-type.*') ? 'show' : '' }}" id="masterDataMenu">
+                    <div class="collapse {{ request()->routeIs('users.*') || request()->routeIs('component-type.*') || request()->routeIs('component.*') || request()->routeIs('clasification.*') ? 'show' : '' }}" id="masterDataMenu">
                         <ul class="navbar-nav ms-3">
                             <li class="nav-item">
                                 <a class="nav-link {{ request()->routeIs('users.*') ? 'active' : '' }}" href="{{ route('users.index') }}">
@@ -40,6 +40,12 @@
                                 <a class="nav-link {{ request()->routeIs('component.*') ? 'active' : '' }}" href="{{ route('component.index') }}">
                                     <i class="bi bi-cpu"></i>
                                     <span>Komponen</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ request()->routeIs('clasification.*') ? 'active' : '' }}" href="{{ route('clasification.index') }}">
+                                    <i class="bi bi-list-check"></i>
+                                    <span>Klasifikasi</span>
                                 </a>
                             </li>
                             <!-- Tambahkan child menu lain di sini jika perlu -->
