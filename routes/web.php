@@ -16,8 +16,11 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    Route::get('users/get-list', [\App\Http\Controllers\UserController::class, 'getDataList'])->name('users.getDataList');
     Route::resource('users', \App\Http\Controllers\UserController::class);
-    Route::get('getDataList', [\App\Http\Controllers\UserController::class, 'getDataList'])->name('users.getDataList');
+
+    Route::get('component-type/get-list', [\App\Http\Controllers\ComponentTypeController::class, 'getDataList'])->name('component-type.getDataList');
+    Route::resource('component-type', \App\Http\Controllers\ComponentTypeController::class);
 });
 
 require __DIR__.'/auth.php';

@@ -253,6 +253,7 @@
     document.getElementById("addUserForm").onsubmit = function(e) {
         e.preventDefault();
         const formData = new FormData(this);
+        const form = this;
         fetch("{{ route('users.store') }}", {
             method: "POST",
             headers: {
@@ -266,6 +267,7 @@
         })
         .then(() => {
             bootstrap.Modal.getInstance(document.getElementById("addUserModal")).hide();
+            form.reset();
             fetchUsers();
         })
         .catch(async err => {

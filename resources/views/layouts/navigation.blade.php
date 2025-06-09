@@ -21,15 +21,15 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="roles.html">
-                        <i class="bi bi-shield-check"></i>
-                        <span>Roles</span>
+                    <a class="nav-link {{ request()->routeIs('component-type.*') ? 'active' : '' }}" href="{{ route('component-type.index') }}">
+                        <i class="bi bi-tags"></i>
+                        <span>Tipe Komponen</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="tipe.html">
-                        <i class="bi bi-tags"></i>
-                        <span>Tipe Komponen</span>
+                    <a class="nav-link" href="roles.html">
+                        <i class="bi bi-shield-check"></i>
+                        <span>Roles</span>
                     </a>
                 </li>
                 <li class="nav-item">
