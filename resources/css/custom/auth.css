@@ -2,13 +2,19 @@
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
-  min-height: 100vh;
+  min-height: 120vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem 0;
 }
 
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
 /* Auth Container - Shared between login and register */
 .auth-container {
   background: white;
@@ -16,7 +22,7 @@ body {
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   width: 100%;
-  max-width: 450px;
+  max-width: 650px;
   padding: 3rem;
 }
 

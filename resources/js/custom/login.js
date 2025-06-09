@@ -79,14 +79,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
-            // Simulate sending reset email
-            showAlert(
-                "Password reset link has been sent to your email address.",
-                "success"
-            );
-            forgotPasswordModal.hide();
-            resetEmailInput.value = "";
-            clearFieldError(resetEmailInput);
+            // // Simulate sending reset email
+            // showAlert(
+            //     "Password reset link has been sent to your email address.",
+            //     "success"
+            // );
+            // forgotPasswordModal.hide();
+            // resetEmailInput.value = "";
+            // clearFieldError(resetEmailInput);
+            forgotPasswordForm.requestSubmit();
         });
 
     // Form validation

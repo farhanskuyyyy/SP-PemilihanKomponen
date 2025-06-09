@@ -40,7 +40,7 @@
                     <a class="nav-link" href="{{ route('login') }}">
                         <i class="bi bi-box-arrow-in-right me-1"></i>Login
                     </a>
-                    <a class="btn btn-outline-light ms-2" href="{{ route('register') }}">
+                    <a class="nav-link" href="{{ route('register') }}">
                         <i class="bi bi-person-plus me-1"></i>Register
                     </a>
                 </div>

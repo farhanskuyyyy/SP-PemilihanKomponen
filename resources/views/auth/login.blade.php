@@ -76,9 +76,9 @@
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
                         aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <p class="text-muted">Please enter your email address to receive a password reset link.</p>
-                    <form id="forgotPasswordForm" method="POST" action="{{ route('password.email') }}">
+                <form id="forgotPasswordForm" method="POST" action="{{ route('password.email') }}">
+                    <div class="modal-body">
+                        <p class="text-muted">Please enter your email address to receive a password reset link.</p>
                         @csrf
                         <div class="form-floating mb-3">
                             <input type="email" class="form-control" id="resetEmail" name="email"
@@ -86,12 +86,12 @@
                             <label for="resetEmail">Email address</label>
                             <div class="invalid-feedback"></div>
                         </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="sendResetBtn">Send Reset Link</button>
-                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" id="sendResetBtn">Send Reset Link</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
