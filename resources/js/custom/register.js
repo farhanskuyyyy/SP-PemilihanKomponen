@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Form inputs
     const inputs = {
-        username: document.getElementById("username"),
+        name: document.getElementById("name"),
         email: document.getElementById("email"),
         password: document.getElementById("password"),
         confirmPassword: document.getElementById("confirmPassword"),
@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Validate all fields
         const fieldsToValidate = [
-            "username",
+            "name",
             "email",
             "password",
             "confirmPassword",
@@ -106,24 +106,24 @@ document.addEventListener("DOMContentLoaded", function () {
         clearFieldError(field);
 
         switch (fieldName) {
-            case "username":
+            case "name":
                 if (!value) {
-                    showFieldError(field, "Username is required");
+                    showFieldError(field, "Name is required");
                     return false;
                 } else if (value.length < 3) {
                     showFieldError(
                         field,
-                        "Username must be at least 3 characters"
+                        "Name must be at least 3 characters"
                     );
                     return false;
                 } else if (!/^[a-zA-Z0-9_]+$/.test(value)) {
                     showFieldError(
                         field,
-                        "Username can only contain letters, numbers, and underscores"
+                        "Name can only contain letters, numbers, and underscores"
                     );
                     return false;
                 } else if (isUsernameTaken(value)) {
-                    showFieldError(field, "This username is already taken");
+                    showFieldError(field, "This name is already taken");
                     return false;
                 }
                 break;
@@ -242,7 +242,7 @@ document.addEventListener("DOMContentLoaded", function () {
         setTimeout(() => {
             const userData = {
                 id: Date.now(),
-                username: inputs.username.value.trim(),
+                name: inputs.name.value.trim(),
                 email: inputs.email.value.trim(),
                 password: inputs.password.value, // In real app, this would be hashed
                 createdAt: new Date().toISOString(),
@@ -304,7 +304,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function clearAllErrors() {
         const inputFields = [
-            inputs.username,
+            inputs.name,
             inputs.email,
             inputs.password,
             inputs.confirmPassword,
@@ -359,9 +359,9 @@ document.addEventListener("DOMContentLoaded", function () {
         );
     }
 
-    function isUsernameTaken(username) {
+    function isUsernameTaken(name) {
         return registeredUsers.some(
-            (user) => user.username.toLowerCase() === username.toLowerCase()
+            (user) => user.name.toLowerCase() === name.toLowerCase()
         );
     }
 });

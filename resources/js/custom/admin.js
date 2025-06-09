@@ -89,33 +89,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   })
 
-  // Handle sidebar link clicks
-  sidebarLinks.forEach((link) => {
-    link.addEventListener("click", function (e) {
-      e.preventDefault()
-
-      // Remove active class from all links
-      sidebarLinks.forEach((l) => l.classList.remove("active"))
-
-      // Add active class to clicked link
-      this.classList.add("active")
-
-      // Update page title based on clicked link
-      const pageTitle = document.querySelector(".page-title")
-      const linkText = this.querySelector("span").textContent.trim()
-      pageTitle.textContent = linkText
-
-      // Update breadcrumb
-      const breadcrumbActive = document.querySelector(".breadcrumb-item.active")
-      breadcrumbActive.textContent = linkText
-
-      // Close mobile sidebar after click
-      if (window.innerWidth < 768 && sidebar.classList.contains("show")) {
-        toggleMobileSidebar()
-      }
-    })
-  })
-
   // Handle window resize
   window.addEventListener("resize", () => {
     if (window.innerWidth >= 768) {
@@ -209,8 +182,3 @@ function showNotification(message, type = "info") {
     }
   }, 5000)
 }
-
-// Show welcome notification
-setTimeout(() => {
-  showNotification("Welcome to the Admin Dashboard!", "success")
-}, 1000)

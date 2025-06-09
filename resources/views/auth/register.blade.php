@@ -16,9 +16,9 @@
             <form id="registerForm" method="POST" action="{{ route('register') }}" novalidate>
                 @csrf
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="username" name="name" placeholder="Username"
+                    <input type="text" class="form-control" id="name" name="name" placeholder="name"
                         value="{{ old('name') }}" required autofocus>
-                    <label for="username" class="required-field">Username</label>
+                    <label for="name" class="required-field">Name</label>
                     <div class="invalid-feedback">
                         @error('name')
                             {{ $message }}
