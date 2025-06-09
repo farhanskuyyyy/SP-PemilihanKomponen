@@ -15,28 +15,36 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('users.*') ? 'active' : '' }}" href="{{ route('users.index') }}">
-                        <i class="bi bi-people"></i>
-                        <span>Users</span>
+                    <a class="nav-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#masterDataMenu" role="button" aria-expanded="false" aria-controls="masterDataMenu">
+                        <span>
+                            <i class="bi bi-folder"></i>
+                            <span>Master Data</span>
+                        </span>
+                        <i class="bi bi-chevron-down small"></i>
                     </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('component-type.*') ? 'active' : '' }}" href="{{ route('component-type.index') }}">
-                        <i class="bi bi-tags"></i>
-                        <span>Tipe Komponen</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="roles.html">
-                        <i class="bi bi-shield-check"></i>
-                        <span>Roles</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="komponen.html">
-                        <i class="bi bi-cpu"></i>
-                        <span>Komponen</span>
-                    </a>
+                    <div class="collapse {{ request()->routeIs('users.*') || request()->routeIs('component-type.*') ? 'show' : '' }}" id="masterDataMenu">
+                        <ul class="navbar-nav ms-3">
+                            <li class="nav-item">
+                                <a class="nav-link {{ request()->routeIs('users.*') ? 'active' : '' }}" href="{{ route('users.index') }}">
+                                    <i class="bi bi-people"></i>
+                                    <span>Users</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ request()->routeIs('component-type.*') ? 'active' : '' }}" href="{{ route('component-type.index') }}">
+                                    <i class="bi bi-tags"></i>
+                                    <span>Tipe Komponen</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ request()->routeIs('component.*') ? 'active' : '' }}" href="{{ route('component.index') }}">
+                                    <i class="bi bi-cpu"></i>
+                                    <span>Komponen</span>
+                                </a>
+                            </li>
+                            <!-- Tambahkan child menu lain di sini jika perlu -->
+                        </ul>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="rakitan.html">

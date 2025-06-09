@@ -89,7 +89,7 @@
 
     <!-- Content Row -->
     <div class="row">
-        <div class="col-lg-8">
+        <div class="col-lg-12">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">Recent Activity</h6>
@@ -130,65 +130,6 @@
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-4">
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Quick Actions</h6>
-                </div>
-                <div class="card-body">
-                    <div class="d-grid gap-2">
-                        <a href="users.html" class="btn btn-primary">
-                            <i class="bi bi-plus-circle me-2"></i>Manage Users
-                        </a>
-                        <button class="btn btn-success" type="button">
-                            <i class="bi bi-box me-2"></i>Add Product
-                        </button>
-                        <button class="btn btn-info" type="button">
-                            <i class="bi bi-file-earmark-text me-2"></i>Generate Report
-                        </button>
-                        <button class="btn btn-warning" type="button">
-                            <i class="bi bi-gear me-2"></i>System Settings
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card shadow">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">System Status</h6>
-                </div>
-                <div class="card-body">
-                    <div class="mb-3">
-                        <div class="d-flex justify-content-between">
-                            <span>Server Load</span>
-                            <span>45%</span>
-                        </div>
-                        <div class="progress">
-                            <div class="progress-bar bg-success" style="width: 45%"></div>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <div class="d-flex justify-content-between">
-                            <span>Memory Usage</span>
-                            <span>78%</span>
-                        </div>
-                        <div class="progress">
-                            <div class="progress-bar bg-warning" style="width: 78%"></div>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <div class="d-flex justify-content-between">
-                            <span>Disk Space</span>
-                            <span>23%</span>
-                        </div>
-                        <div class="progress">
-                            <div class="progress-bar bg-info" style="width: 23%"></div>
-                        </div>
                     </div>
                 </div>
             </div>

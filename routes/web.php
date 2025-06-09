@@ -21,6 +21,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('component-type/get-list', [\App\Http\Controllers\ComponentTypeController::class, 'getDataList'])->name('component-type.getDataList');
     Route::resource('component-type', \App\Http\Controllers\ComponentTypeController::class);
+
+    Route::get('component/get-list', [\App\Http\Controllers\ComponentController::class, 'getDataList'])->name('component.getDataList');
+    Route::resource('component', \App\Http\Controllers\ComponentController::class);
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
