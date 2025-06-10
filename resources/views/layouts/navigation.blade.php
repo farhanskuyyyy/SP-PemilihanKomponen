@@ -59,21 +59,9 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="rakitan.html">
+                    <a class="nav-link {{ request()->routeIs('rakitan.*') ? 'active' : '' }}" href="{{ route('rakitan.index') }}">
                         <i class="bi bi-pc-display"></i>
                         <span>Rakitan PC</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="klasifikasi.html">
-                        <i class="bi bi-list-check"></i>
-                        <span>Klasifikasi</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="kategori.html">
-                        <i class="bi bi-collection"></i>
-                        <span>Kategori</span>
                     </a>
                 </li>
                 <li class="nav-item">
