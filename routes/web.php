@@ -33,6 +33,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('rakitan/get-list', [\App\Http\Controllers\RakitanController::class, 'getDataList'])->name('rakitan.getDataList');
     Route::resource('rakitan', \App\Http\Controllers\RakitanController::class);
+
+    Route::get('rule/get-list', [\App\Http\Controllers\RuleController::class, 'getDataList'])->name('rule.getDataList');
+    Route::resource('rule', \App\Http\Controllers\RuleController::class);
 });
 
 require __DIR__ . '/auth.php';

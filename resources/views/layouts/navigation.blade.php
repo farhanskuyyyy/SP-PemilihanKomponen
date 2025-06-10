@@ -65,7 +65,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="rules.html">
+                    <a class="nav-link {{ request()->routeIs('rule.*') ? 'active' : '' }}" href="{{ route('rule.index') }}">
                         <i class="bi bi-gear"></i>
                         <span>Rules</span>
                     </a>
