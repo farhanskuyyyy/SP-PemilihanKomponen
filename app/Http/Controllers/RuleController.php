@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Clasification;
 use App\Models\Rakitan;
 use Illuminate\Http\Request;
 use App\Models\Rule;
@@ -15,8 +16,8 @@ class RuleController extends Controller
     public function index()
     {
         $rakitans = Rakitan::all();
-        $categories = Category::all();
-        return view('rule.index', compact('rakitans', 'categories'));
+        $clasifications = Clasification::with('categories')->get();
+        return view('rule.index', compact('rakitans', 'clasifications'));
     }
 
     /**

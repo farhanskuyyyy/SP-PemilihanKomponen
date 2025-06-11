@@ -58,18 +58,23 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="addRuleModalLabel">Add New Rule</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                            aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label class="form-label required-field">Categories</label>
+                            <label class="form-label required-field">Clasification</label>
                             <div>
-                                @foreach($categories as $category)
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" name="categories[]" id="category_{{ $category->id }}" value="{{ $category->id }}">
-                                        <label class="form-check-label" for="category_{{ $category->id }}">{{ $category->name }}</label>
-                                    </div>
+                                @foreach ($clasifications as $class)
+                                    <p>{{ $class->name }}</p>
+                                    @foreach ($class->categories as $category)
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" name="categories[]"
+                                                id="category_{{ $category->id }}" value="{{ $category->id }}">
+                                            <label class="form-check-label"
+                                                for="category_{{ $category->id }}">{{ $category->name }}</label>
+                                        </div>
+                                    @endforeach
+                                    <hr>
                                 @endforeach
                             </div>
                         </div>
@@ -81,7 +86,7 @@
                             <label for="solusi" class="form-label required-field">Solusi</label>
                             <select class="form-select" id="solusi" name="solusi" required>
                                 <option value="" disabled selected>Pilih Solusi</option>
-                                @foreach($rakitans as $rakitan)
+                                @foreach ($rakitans as $rakitan)
                                     <option value="{{ $rakitan->id }}">{{ $rakitan->code }} - {{ $rakitan->name }}</option>
                                 @endforeach
                             </select>
@@ -90,8 +95,9 @@
                             <label for="solusi_rekomendasi" class="form-label">Solusi Rekomendasi</label>
                             <select class="form-select" id="solusi_rekomendasi" name="solusi_rekomendasi">
                                 <option value="" disabled selected>Pilih Solusi Rekomendasi</option>
-                                @foreach($rakitans as $rakitan)
-                                    <option value="{{ $rakitan->id }}">{{ $rakitan->code }} - {{ $rakitan->name }}</option>
+                                @foreach ($rakitans as $rakitan)
+                                    <option value="{{ $rakitan->id }}">{{ $rakitan->code }} - {{ $rakitan->name }}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
@@ -117,18 +123,23 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="editRuleModalLabel">Edit Rule</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                            aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="mb-3">
                             <label class="form-label required-field">Categories</label>
                             <div>
-                                @foreach($categories as $category)
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" name="categories[]" id="edit_category_{{ $category->id }}" value="{{ $category->id }}">
-                                        <label class="form-check-label" for="edit_category_{{ $category->id }}">{{ $category->name }}</label>
-                                    </div>
+                                @foreach ($clasifications as $class)
+                                    <p>{{ $class->name }}</p>
+                                    @foreach ($class->categories as $category)
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" name="categories[]"
+                                                id="edit_category_{{ $category->id }}" value="{{ $category->id }}">
+                                            <label class="form-check-label"
+                                                for="edit_category_{{ $category->id }}">{{ $category->name }}</label>
+                                        </div>
+                                    @endforeach
+                                    <hr>
                                 @endforeach
                             </div>
                         </div>
@@ -140,8 +151,9 @@
                             <label for="editSolusi" class="form-label required-field">Solusi</label>
                             <select class="form-select" id="editSolusi" name="solusi" required>
                                 <option value="" disabled selected>Pilih Solusi</option>
-                                @foreach($rakitans as $rakitan)
-                                    <option value="{{ $rakitan->id }}">{{ $rakitan->code }} - {{ $rakitan->name }}</option>
+                                @foreach ($rakitans as $rakitan)
+                                    <option value="{{ $rakitan->id }}">{{ $rakitan->code }} - {{ $rakitan->name }}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
@@ -149,8 +161,9 @@
                             <label for="editSolusiRekomendasi" class="form-label">Solusi Rekomendasi</label>
                             <select class="form-select" id="editSolusiRekomendasi" name="solusi_rekomendasi">
                                 <option value="" disabled selected>Pilih Solusi Rekomendasi</option>
-                                @foreach($rakitans as $rakitan)
-                                    <option value="{{ $rakitan->id }}">{{ $rakitan->code }} - {{ $rakitan->name }}</option>
+                                @foreach ($rakitans as $rakitan)
+                                    <option value="{{ $rakitan->id }}">{{ $rakitan->code }} - {{ $rakitan->name }}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
@@ -194,11 +207,11 @@
 @endsection
 
 @section('js')
-<script>
-    let rules = [];
+    <script>
+        let rules = [];
 
-    function fetchRules() {
-        document.querySelector("#ruleTable tbody").innerHTML = `
+        function fetchRules() {
+            document.querySelector("#ruleTable tbody").innerHTML = `
             <tr>
                 <td colspan="6" class="text-center">
                     <div class="spinner-border text-primary" role="status">
@@ -209,21 +222,21 @@
             </tr>
         `;
 
-        fetch("{{ route('rule.getDataList') }}")
-            .then(res => res.json())
-            .then(data => {
-                rules = data.data || data;
-                initializeRuleTable();
-            });
-    }
+            fetch("{{ route('rule.getDataList') }}")
+                .then(res => res.json())
+                .then(data => {
+                    rules = data.data || data;
+                    initializeRuleTable();
+                });
+        }
 
-    function initializeRuleTable() {
-        const tbody = document.querySelector("#ruleTable tbody");
-        tbody.innerHTML = "";
+        function initializeRuleTable() {
+            const tbody = document.querySelector("#ruleTable tbody");
+            tbody.innerHTML = "";
 
-        rules.forEach((rule, idx) => {
-            const tr = document.createElement("tr");
-            tr.innerHTML = `
+            rules.forEach((rule, idx) => {
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
                 <td>${idx + 1}</td>
                 <td>${Array.isArray(rule.category_codes) ? rule.category_codes.join(", ") : rule.category_codes}</td>
                 <td>${rule.description}</td>
@@ -235,151 +248,153 @@
                     <button class="btn btn-sm btn-danger delete-rule" data-id="${rule.id}"><i class="bi bi-trash"></i></button>
                 </td>
             `;
-            tbody.appendChild(tr);
-        });
+                tbody.appendChild(tr);
+            });
 
-        addRuleActionButtonListeners();
-    }
+            addRuleActionButtonListeners();
+        }
 
-    function addRuleActionButtonListeners() {
-        document.querySelectorAll(".edit-rule").forEach(btn => {
-            btn.onclick = function() {
-                const ruleId = this.getAttribute("data-id");
-                const rule = rules.find(u => u.id == ruleId);
-                if (rule) {
-                    document.getElementById("editRuleId").value = rule.id;
-                    document.getElementById("editDescription").value = rule.description;
-                    document.getElementById("editSolusi").value = rule.solusi.id;
-                    document.getElementById("editSolusiRekomendasi").value = rule.solusi_rekomendasi ? rule.solusi_rekomendasi.code : "";
-                    document.getElementById("editDescriptionRekomendasi").value = rule.description_rekomendasi ?? '';
-                    if (Array.isArray(rule.category_ids)) {
-                        rule.category_ids.forEach(id => {
-                            const checkbox = document.getElementById(`edit_category_${id}`);
-                            if (checkbox) checkbox.checked = true;
-                        });
+        function addRuleActionButtonListeners() {
+            document.querySelectorAll(".edit-rule").forEach(btn => {
+                btn.onclick = function() {
+                    const ruleId = this.getAttribute("data-id");
+                    const rule = rules.find(u => u.id == ruleId);
+                    if (rule) {
+                        document.getElementById("editRuleId").value = rule.id;
+                        document.getElementById("editDescription").value = rule.description;
+                        document.getElementById("editSolusi").value = rule.solusi.id;
+                        document.getElementById("editSolusiRekomendasi").value = rule.solusi_rekomendasi ? rule
+                            .solusi_rekomendasi.code : "";
+                        document.getElementById("editDescriptionRekomendasi").value = rule
+                            .description_rekomendasi ?? '';
+                        if (Array.isArray(rule.category_ids)) {
+                            rule.category_ids.forEach(id => {
+                                const checkbox = document.getElementById(`edit_category_${id}`);
+                                if (checkbox) checkbox.checked = true;
+                            });
+                        }
+                        new bootstrap.Modal(document.getElementById("editRuleModal")).show();
                     }
-                    new bootstrap.Modal(document.getElementById("editRuleModal")).show();
-                }
-            };
-        });
+                };
+            });
 
-        document.querySelectorAll(".delete-rule").forEach(btn => {
-            btn.onclick = function() {
-                const ruleId = this.getAttribute("data-id");
-                const rule = rules.find(u => u.id == ruleId);
-                if (rule) {
-                    document.getElementById("deleteRuleId").value = rule.id;
-                    document.getElementById("deleteRuleDescription").textContent = rule.description;
-                    new bootstrap.Modal(document.getElementById("deleteRuleModal")).show();
-                }
-            };
-        });
-    }
+            document.querySelectorAll(".delete-rule").forEach(btn => {
+                btn.onclick = function() {
+                    const ruleId = this.getAttribute("data-id");
+                    const rule = rules.find(u => u.id == ruleId);
+                    if (rule) {
+                        document.getElementById("deleteRuleId").value = rule.id;
+                        document.getElementById("deleteRuleDescription").textContent = rule.description;
+                        new bootstrap.Modal(document.getElementById("deleteRuleModal")).show();
+                    }
+                };
+            });
+        }
 
-    // Add Rule
-    document.getElementById("addRuleForm").onsubmit = function(e) {
-        e.preventDefault();
-        const form = this;
-        const formData = new FormData(form);
-        fetch("{{ route('rule.store') }}", {
-            method: "POST",
-            headers: {
-                "X-CSRF-TOKEN": "{{ csrf_token() }}"
-            },
-            body: formData
-        })
-        .then(res => {
-            if (!res.ok) throw res;
-            return res.json();
-        })
-        .then(() => {
-            bootstrap.Modal.getInstance(document.getElementById("addRuleModal")).hide();
-            form.reset();
-            fetchRules();
-        })
-        .catch(async err => {
-            let msg = "Failed to add rule";
-            if (err.json) {
-                const data = await err.json();
-                msg = data?.message || msg;
-            }
-            alert(msg);
-        });
-    };
+        // Add Rule
+        document.getElementById("addRuleForm").onsubmit = function(e) {
+            e.preventDefault();
+            const form = this;
+            const formData = new FormData(form);
+            fetch("{{ route('rule.store') }}", {
+                    method: "POST",
+                    headers: {
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                    },
+                    body: formData
+                })
+                .then(res => {
+                    if (!res.ok) throw res;
+                    return res.json();
+                })
+                .then(() => {
+                    bootstrap.Modal.getInstance(document.getElementById("addRuleModal")).hide();
+                    form.reset();
+                    fetchRules();
+                })
+                .catch(async err => {
+                    let msg = "Failed to add rule";
+                    if (err.json) {
+                        const data = await err.json();
+                        msg = data?.message || msg;
+                    }
+                    alert(msg);
+                });
+        };
 
-    // Edit Rule
-    document.getElementById("editRuleForm").onsubmit = function(e) {
-        e.preventDefault();
-        const ruleId = document.getElementById("editRuleId").value;
-        const formData = new FormData(this);
-        formData.append("_method", "PUT");
-        fetch(`/rule/${ruleId}`, {
-            method: "POST",
-            headers: {
-                "X-CSRF-TOKEN": "{{ csrf_token() }}"
-            },
-            body: formData
-        })
-        .then(res => {
-            if (!res.ok) throw res;
-            return res.json();
-        })
-        .then(() => {
-            bootstrap.Modal.getInstance(document.getElementById("editRuleModal")).hide();
-            fetchRules();
-        })
-        .catch(async err => {
-            let msg = "Failed to update rule";
-            if (err.json) {
-                const data = await err.json();
-                msg = data?.message || msg;
-            }
-            alert(msg);
-        });
-    };
+        // Edit Rule
+        document.getElementById("editRuleForm").onsubmit = function(e) {
+            e.preventDefault();
+            const ruleId = document.getElementById("editRuleId").value;
+            const formData = new FormData(this);
+            formData.append("_method", "PUT");
+            fetch(`/rule/${ruleId}`, {
+                    method: "POST",
+                    headers: {
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                    },
+                    body: formData
+                })
+                .then(res => {
+                    if (!res.ok) throw res;
+                    return res.json();
+                })
+                .then(() => {
+                    bootstrap.Modal.getInstance(document.getElementById("editRuleModal")).hide();
+                    fetchRules();
+                })
+                .catch(async err => {
+                    let msg = "Failed to update rule";
+                    if (err.json) {
+                        const data = await err.json();
+                        msg = data?.message || msg;
+                    }
+                    alert(msg);
+                });
+        };
 
-    // Delete Rule
-    document.getElementById("confirmDeleteRuleBtn").onclick = function() {
-        const ruleId = document.getElementById("deleteRuleId").value;
-        const formData = new FormData();
-        formData.append("_token", "{{ csrf_token() }}");
-        formData.append("_method", "DELETE");
-        fetch(`/rule/${ruleId}`, {
-            method: "POST",
-            body: formData
-        })
-        .then(res => {
-            if (!res.ok) throw res;
-            return res.json();
-        })
-        .then(() => {
-            bootstrap.Modal.getInstance(document.getElementById("deleteRuleModal")).hide();
-            fetchRules();
-        })
-        .catch(async err => {
-            let msg = "Failed to delete rule";
-            if (err.json) {
-                const data = await err.json();
-                msg = data?.message || msg;
-            }
-            alert(msg);
-        });
-    };
+        // Delete Rule
+        document.getElementById("confirmDeleteRuleBtn").onclick = function() {
+            const ruleId = document.getElementById("deleteRuleId").value;
+            const formData = new FormData();
+            formData.append("_token", "{{ csrf_token() }}");
+            formData.append("_method", "DELETE");
+            fetch(`/rule/${ruleId}`, {
+                    method: "POST",
+                    body: formData
+                })
+                .then(res => {
+                    if (!res.ok) throw res;
+                    return res.json();
+                })
+                .then(() => {
+                    bootstrap.Modal.getInstance(document.getElementById("deleteRuleModal")).hide();
+                    fetchRules();
+                })
+                .catch(async err => {
+                    let msg = "Failed to delete rule";
+                    if (err.json) {
+                        const data = await err.json();
+                        msg = data?.message || msg;
+                    }
+                    alert(msg);
+                });
+        };
 
-    document.getElementById("refreshRulesBtn").onclick = fetchRules;
+        document.getElementById("refreshRulesBtn").onclick = fetchRules;
 
-    // Search
-    document.getElementById("ruleSearch").onkeyup = function() {
-        const val = this.value.toLowerCase();
-        const filtered = rules.filter(u =>
-            (u.description && u.description.toLowerCase().includes(val)) ||
-            (u.description_rekomendasi && u.description_rekomendasi.toLowerCase().includes(val))
-        );
-        const tbody = document.querySelector("#ruleTable tbody");
-        tbody.innerHTML = "";
-        filtered.forEach((rule, idx) => {
-            const tr = document.createElement("tr");
-            tr.innerHTML = `
+        // Search
+        document.getElementById("ruleSearch").onkeyup = function() {
+            const val = this.value.toLowerCase();
+            const filtered = rules.filter(u =>
+                (u.description && u.description.toLowerCase().includes(val)) ||
+                (u.description_rekomendasi && u.description_rekomendasi.toLowerCase().includes(val))
+            );
+            const tbody = document.querySelector("#ruleTable tbody");
+            tbody.innerHTML = "";
+            filtered.forEach((rule, idx) => {
+                const tr = document.createElement("tr");
+                tr.innerHTML = `
                 <td>${idx + 1}</td>
                 <td>${rule.description}</td>
                 <td>${rule.solusi.code}</td>
@@ -390,11 +405,11 @@
                     <button class="btn btn-sm btn-danger delete-rule" data-id="${rule.id}"><i class="bi bi-trash"></i></button>
                 </td>
             `;
-            tbody.appendChild(tr);
-        });
-        addRuleActionButtonListeners();
-    };
+                tbody.appendChild(tr);
+            });
+            addRuleActionButtonListeners();
+        };
 
-    document.addEventListener("DOMContentLoaded", fetchRules);
-</script>
+        document.addEventListener("DOMContentLoaded", fetchRules);
+    </script>
 @endsection
