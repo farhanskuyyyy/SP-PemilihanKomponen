@@ -38,7 +38,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('rule', \App\Http\Controllers\RuleController::class);
 
     Route::get('konsultasi', [\App\Http\Controllers\KonsultasiController::class, 'index'])->name('konsultasi.index');
-    Route::any('konsultasi/store', [\App\Http\Controllers\KonsultasiController::class, 'store'])->name('konsultasi.store');
+    Route::post('konsultasi', [\App\Http\Controllers\KonsultasiController::class, 'store'])->name('konsultasi.store');
 
     Route::get('simulasi', [\App\Http\Controllers\SimulasiController::class, 'index'])->name('simulasi.index');
     Route::post('simulasi', [\App\Http\Controllers\SimulasiController::class, 'store'])->name('simulasi.store');
