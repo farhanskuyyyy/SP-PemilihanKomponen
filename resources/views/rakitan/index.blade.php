@@ -87,6 +87,11 @@
                                 </select>
                             </div>
                         @endforeach
+
+                        <div class="mb-3">
+                            <label class="form-label">Total Harga</label>
+                            <input type="text" class="form-control" id="totalHarga" name="totalHarga" readonly>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -125,6 +130,12 @@
                                 </select>
                             </div>
                         @endforeach
+
+                        <div class="mb-3">
+                            <label class="form-label">Total Harga</label>
+                            <input type="text" class="form-control" id="editTotalHarga" name="editTotalHarga"
+                                readonly>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -194,6 +205,43 @@
                 });
         }
 
+        function updateTotalHarga() {
+            let total = 0;
+            const fields = ['motherboard', 'processor', 'ram', 'casing', 'storage_primary', 'storage_secondary', 'vga',
+                'psu', 'monitor'
+            ];
+            fields.forEach(comp => {
+                const select = document.getElementById(comp);
+                if (select && select.value) {
+                    const option = select.options[select.selectedIndex];
+                    const match = option.text.match(/Rp\s?([\d.,]+)/);
+                    if (match) {
+                        total += Number(match[1].replace(/\./g, '').replace(',', '.'));
+                    }
+                }
+            });
+            document.getElementById('totalHarga').value = total ? 'Rp ' + total.toLocaleString('id-ID') : '';
+        }
+
+        function updateTotalHargaEdit() {
+            let total = 0;
+            const fields = ['motherboard', 'processor', 'ram', 'casing', 'storage_primary', 'storage_secondary', 'vga',
+                'psu', 'monitor'
+            ];
+            fields.forEach(comp => {
+                const select = document.getElementById("edit" + comp.charAt(0).toUpperCase() + comp.slice(1));
+                if (select && select.value) {
+                    const option = select.options[select.selectedIndex];
+                    const match = option.text.match(/Rp\s?([\d.,]+)/);
+                    if (match) {
+                        total += Number(match[1].replace(/\./g, '').replace(',', '.'));
+                    }
+                }
+            });
+            document.getElementById('editTotalHarga').value = total ? 'Rp ' + total.toLocaleString('id-ID') : '';
+        }
+
+
         function initializeRakitanTable() {
             const tbody = document.querySelector("#rakitanTable tbody");
             tbody.innerHTML = "";
@@ -238,11 +286,13 @@
                         ['motherboard', 'processor', 'ram', 'casing', 'storage_primary', 'storage_secondary',
                             'vga', 'psu', 'monitor'
                         ].forEach(comp => {
-                            const select = document.getElementById("edit" + comp.charAt(0).toUpperCase() + comp.slice(1));
+                            const select = document.getElementById("edit" + comp.charAt(0)
+                                .toUpperCase() + comp.slice(1));
                             if (select) {
                                 select.value = rakitan[comp]?.id || "";
                             }
                         });
+                        updateTotalHargaEdit();
                         new bootstrap.Modal(document.getElementById("editRakitanModal")).show();
                     }
                 };
@@ -418,7 +468,8 @@
                             (c.type && c.type.name && c.type.name.toLowerCase().includes(comp.replace('_',
                                 ' ')))
                         ) {
-                            select.innerHTML += `<option value="${c.id}">${c.name}</option>`;
+                            select.innerHTML +=
+                                `<option value="${c.id}">${c.name} ( Rp ${Number(c.price).toLocaleString('id-ID')} )</option>`;
                         }
                     });
                 }
@@ -433,7 +484,8 @@
                             (c.type && c.type.name && c.type.name.toLowerCase().includes(comp.replace('_',
                                 ' ')))
                         ) {
-                            editSelect.innerHTML += `<option value="${c.id}">${c.name}</option>`;
+                            editSelect.innerHTML +=
+                                `<option value="${c.id}">${c.name} ( Rp ${Number(c.price).toLocaleString('id-ID')} )</option>`;
                         }
                     });
                 }
@@ -444,6 +496,24 @@
             fetchComponents().then(() => {
                 populateComponentSelects();
                 fetchRakitan();
+                const fields = ['motherboard', 'processor', 'ram', 'casing', 'storage_primary',
+                    'storage_secondary',
+                    'vga', 'psu', 'monitor'
+                ];
+                fields.forEach(comp => {
+                    const select = document.getElementById(comp);
+                    if (select) {
+                        select.addEventListener('change', updateTotalHarga);
+                    }
+                });
+                fields.forEach(comp => {
+                    const select = document.getElementById("edit" + comp.charAt(0)
+                        .toUpperCase() + comp.slice(1));
+                    if (select) {
+                        select.addEventListener('change', updateTotalHargaEdit);
+                    }
+                });
+                updateTotalHarga();
             });
         });
     </script>
