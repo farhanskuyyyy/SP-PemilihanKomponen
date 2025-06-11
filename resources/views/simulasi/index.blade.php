@@ -26,9 +26,9 @@
                     <div class="col-md-6 mb-2">
                         <div class="card border-primary">
                             <div class="card-body">
-                                <h6 class="card-title">Rekomendasi 1</h6>
-                                <p class="card-text">Simulasi untuk kebutuhan standar kantor/rumah.</p>
-                                <a href="{{ route('simulasi.index', ['id' => $rekomendasi->id]) }}"
+                                <h6 class="card-title">{{ $rekomendasi->rsolusi->name }}</h6>
+                                <p class="card-text">{{ $rekomendasi->description }}</p>
+                                <a href="{{ route('simulasi.index', ['id' => $rekomendasi->solusi]) }}"
                                     class="btn btn-outline-primary btn-sm">Lihat
                                     Rekomendasi</a>
                             </div>
@@ -37,9 +37,9 @@
                     <div class="col-md-6 mb-2">
                         <div class="card border-success">
                             <div class="card-body">
-                                <h6 class="card-title">Rekomendasi 2</h6>
-                                <p class="card-text">Simulasi untuk kebutuhan gaming/berat.</p>
-                                <a href="{{ route('simulasi.index', ['id' => $rekomendasi2->id]) }}"
+                                <h6 class="card-title">{{ $rekomendasi2->rsolusi->name }}</h6>
+                                <p class="card-text">{{ $rekomendasi2->description }}</p>
+                                <a href="{{ route('simulasi.index', ['id' => $rekomendasi2->solusi]) }}"
                                     class="btn btn-outline-success btn-sm">Lihat
                                     Rekomendasi</a>
                             </div>

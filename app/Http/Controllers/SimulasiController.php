@@ -3,14 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Rakitan;
+use App\Models\Rule;
 use Illuminate\Http\Request;
 
 class SimulasiController extends Controller
 {
     public function index(Request $request)
     {
-        $rekomendasi = Rakitan::limit(1)->orderBy('id','asc')->first();
-        $rekomendasi2 = Rakitan::limit(1)->orderBy('id','desc')->first();
+        $rekomendasi = Rule::with(['rsolusi', 'rsolusiRekomendasi'])->orderBy('id','asc')->first();
+        $rekomendasi2 = Rule::with(['rsolusi', 'rsolusiRekomendasi'])->orderBy('id','desc')->first();
         if ($selectedRakitan = $request->id ?? null) {
             $selectedRakitan = Rakitan::find($selectedRakitan);
         }
