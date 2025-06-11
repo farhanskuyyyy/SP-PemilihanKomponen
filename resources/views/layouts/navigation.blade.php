@@ -70,6 +70,18 @@
                         <span>Rules</span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('konsultasi.*') ? 'active' : '' }}" href="{{ route('konsultasi.index') }}">
+                        <i class="bi bi-chat-dots"></i>
+                        <span>Konsultasi</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('simulasi.*') ? 'active' : '' }}" href="{{ route('simulasi.index') }}">
+                        <i class="bi bi-laptop"></i>
+                        <span>Simulasi</span>
+                    </a>
+                </li>
             </ul>
         </nav>
     </div>

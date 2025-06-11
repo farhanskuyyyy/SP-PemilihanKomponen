@@ -108,7 +108,9 @@ class RakitanController extends Controller
             'psu',
             'monitor',
             'creator',
-        ])->get();
+        ])->whereHas('creator', function ($q) {
+            $q->where('role', 'admin');
+        })->get();
         return response()->json(['data' => $rakitans]);
     }
 }

@@ -36,6 +36,12 @@ Route::middleware('auth')->group(function () {
 
     Route::get('rule/get-list', [\App\Http\Controllers\RuleController::class, 'getDataList'])->name('rule.getDataList');
     Route::resource('rule', \App\Http\Controllers\RuleController::class);
+
+    Route::get('konsultasi', [\App\Http\Controllers\KonsultasiController::class, 'index'])->name('konsultasi.index');
+    Route::post('konsultasi', [\App\Http\Controllers\KonsultasiController::class, 'store'])->name('konsultasi.store');
+
+    Route::get('simulasi', [\App\Http\Controllers\SimulasiController::class, 'index'])->name('simulasi.index');
+    Route::post('simulasi', [\App\Http\Controllers\SimulasiController::class, 'store'])->name('simulasi.store');
 });
 
 require __DIR__ . '/auth.php';

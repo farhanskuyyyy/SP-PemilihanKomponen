@@ -25,7 +25,7 @@ class CategoryController extends Controller
         $validated = $request->validate([
             'code'            => 'required|unique:categories,code',
             'name'            => 'required|string',
-            'value'           => 'required|numeric|min:0',
+            'value'           => 'required',
             'clasification_id'=> 'required|exists:clasifications,id',
         ]);
 
@@ -53,7 +53,7 @@ class CategoryController extends Controller
         $validated = $request->validate([
             'code'            => 'required|unique:categories,code,' . $id,
             'name'            => 'required|string',
-            'value'           => 'required|numeric|min:0',
+            'value'           => 'required',
             'clasification_id'=> 'required|exists:clasifications,id',
         ]);
 

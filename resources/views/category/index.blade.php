@@ -51,8 +51,7 @@
     </div>
 
     <!-- Add Category Modal -->
-    <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <form id="addCategoryForm">
                 <div class="modal-content">
@@ -71,7 +70,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="value" class="form-label required-field">Value</label>
-                            <input type="number" class="form-control" id="value" name="value" required>
+                            <input type="text" class="form-control" id="value" name="value" required>
                         </div>
                         <div class="mb-3">
                             <label for="clasification_id" class="form-label required-field">Clasification</label>
@@ -114,7 +113,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="editValue" class="form-label required-field">Value</label>
-                            <input type="number" class="form-control" id="editValue" name="value" required>
+                            <input type="text" class="form-control" id="editValue" name="value" required>
                         </div>
                         <div class="mb-3">
                             <label for="editClasificationId" class="form-label required-field">Clasification</label>
@@ -214,6 +213,7 @@
                     const categoryId = this.getAttribute("data-id");
                     const category = categories.find(u => u.id == categoryId);
                     if (category) {
+                        console.log(category)
                         document.getElementById("editCategoryId").value = category.id;
                         document.getElementById("editCode").value = category.code;
                         document.getElementById("editName").value = category.name;
