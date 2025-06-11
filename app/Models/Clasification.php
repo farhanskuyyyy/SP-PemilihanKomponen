@@ -11,4 +11,8 @@ class Clasification extends Model
         'pertanyaan',
     ];
 
+    public function categories()
+    {
+        return $this->hasMany(Category::class);
+    }
 }

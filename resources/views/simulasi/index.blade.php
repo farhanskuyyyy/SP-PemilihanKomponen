@@ -99,7 +99,7 @@
         });
 
         // Add Simulasi
-        document.getElementById("saveSimulasiBtn").addEventListener("click", function(e) {
+        document.getElementById("addSimulasiForm").addEventListener("submit", function(e) {
             e.preventDefault();
             saveSimulation();
         });
