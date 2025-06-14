@@ -27,10 +27,10 @@
                 @foreach ($clasifications as $class)
                     <div class="mb-3">
                         <label for="categories" class="form-label">{{ $class->pertanyaan }}</label>
-                        <select name="categories_{{ $class->id }}" id="" class="form-control" required>
+                        <select name="categories[]" id="" class="form-control">
                             <option value="">Pilih {{ $class->name }}</option>
                             @foreach ($class->categories as $cat)
-                                <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+                                <option value="{{ $cat->code }}">{{ $cat->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -81,7 +81,6 @@
                 })
                 .then(resp => {
                     // alert("Konsultasi added successfully!");
-                    form.reset();
                     // URL rekomendasi utama
                     const solusiUrl = "{{ route('simulasi.index', ['id' => '__ID__']) }}".replace('__ID__', resp.data
                         .solusi);
@@ -121,7 +120,7 @@
                     } else if (err.message) {
                         msg = err.message;
                     }
-                    // alert(msg);
+                    alert(msg);
                 })
                 .finally(() => {
                     saveBtn.disabled = false;
