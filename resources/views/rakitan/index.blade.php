@@ -252,16 +252,16 @@
                 <td>${idx + 1}</td>
                 <td>${rakitan.code}</td>
                 <td>${rakitan.name}</td>
-                <td>${rakitan.motherboard.name ?? '-'}</td>
-                <td>${rakitan.processor.name ?? '-'}</td>
-                <td>${rakitan.ram.name ?? '-'}</td>
-                <td>${rakitan.casing.name ?? '-'}</td>
-                <td>${rakitan.storage_primary.name ?? '-'}</td>
-                <td>${rakitan.storage_secondary.name ?? '-'}</td>
-                <td>${rakitan.vga.name ?? '-'}</td>
-                <td>${rakitan.psu.name ?? '-'}</td>
-                <td>${rakitan.monitor.name ?? '-'}</td>
-                <td>${rakitan.creator.name ?? "-"}</td>
+                <td>${(rakitan.motherboard) ? rakitan.motherboard.name : '-'}</td>
+                <td>${(rakitan.processor) ? rakitan.processor.name : '-'}</td>
+                <td>${(rakitan.ram) ? rakitan.ram.name : '-'}</td>
+                <td>${(rakitan.casing) ? rakitan.casing.name : '-'}</td>
+                <td>${(rakitan.storage_primary) ? rakitan.storage_primary.name : '-'}</td>
+                <td>${(rakitan.storage_secondary) ? rakitan.storage_secondary.name : '-'}</td>
+                <td>${(rakitan.vga) ? rakitan.vga.name : '-'}</td>
+                <td>${(rakitan.psu) ? rakitan.psu.name : '-'}</td>
+                <td>${(rakitan.monitor) ? rakitan.monitor.name : '-'}</td>
+                <td>${(rakitan.creator) ? rakitan.creator.name : "-"}</td>
                 <td>${new Date(rakitan.created_at).toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' })}</td>
                 <td>
                     <button class="btn btn-sm btn-primary edit-rakitan" data-id="${rakitan.id}"><i class="bi bi-pencil"></i></button>

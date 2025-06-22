@@ -10,8 +10,13 @@ class SimulasiController extends Controller
 {
     public function index(Request $request)
     {
-        $rekomendasi = Rule::with(['rsolusi', 'rsolusiRekomendasi'])->orderBy('id','asc')->first();
-        $rekomendasi2 = Rule::with(['rsolusi', 'rsolusiRekomendasi'])->orderBy('id','desc')->first();
+        $rekomendasi = Rule::with(['rsolusi', 'rsolusiRekomendasi'])
+            ->inRandomOrder()
+            ->first();
+        $rekomendasi2 = Rule::with(['rsolusi', 'rsolusiRekomendasi'])
+            ->inRandomOrder()
+            ->first();
+
         if ($selectedRakitan = $request->id ?? null) {
             $selectedRakitan = Rakitan::find($selectedRakitan);
         }

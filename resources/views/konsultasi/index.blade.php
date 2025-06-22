@@ -41,7 +41,7 @@
                 </div>
             </form>
 
-            <div class="mt-5 d-none" id="hasil">
+            <div class="mt-5" id="hasil">
 
             </div>
         </div>
@@ -57,6 +57,8 @@
 
             const form = document.getElementById("addKonsultasiForm"); // pastikan ID form kamu benar
             const formData = new FormData(form);
+            const hasilDiv = document.getElementById('hasil');
+            hasilDiv.innerHTML = ''; // Kosongkan hasil sebelumnya
 
             saveBtn.disabled = true;
             saveBtn.innerHTML =
@@ -82,13 +84,22 @@
                 .then(resp => {
                     // alert("Konsultasi added successfully!");
                     // URL rekomendasi utama
-                    const solusiUrl = "{{ route('simulasi.index', ['id' => '__ID__']) }}".replace('__ID__', resp.data
+                    const solusiUrl = "{{ route('simulasi.index', ['id' => '__ID__']) }}".replace('__ID__', resp
+                        .data
                         .solusi);
                     let html = `
                         <div class="card border-primary">
+                            <div class="card-header">
+                                <h5 class="card-title">Hasil Konsultasi</h5>
+                            </div>
                             <div class="card-body">
                                 <h6 class="card-title">${resp.data.rsolusi.name}</h6>
                                 <p class="card-text">${resp.data.description}</p>
+                                <div class="mb-2">
+                                     <span class="badge bg-info text-dark">
+                                        Total Harga: Rp ${Number(resp.data.total_price_solusi).toLocaleString('id-ID')}
+                                    </span>
+                                </div>
                                 <a href="${solusiUrl}" class="btn btn-outline-primary btn-sm">Lihat Rekomendasi</a>
                             </div>
                         </div>
@@ -101,26 +112,27 @@
                         html += `
                                 <br>
                                 <div class="card border-primary">
+                                    <div class="card-header">
+                                        <h5 class="card-title">Rekomendasi Lainnya</h5>
+                                    </div>
                                     <div class="card-body">
                                         <h6 class="card-title">${resp.data.rsolusi_rekomendasi.name}</h6>
                                         <p class="card-text">${resp.data.description_rekomendasi}</p>
+                                        <div class="mb-2">
+                                            <span class="badge bg-info text-dark">
+                                                Total Harga: Rp ${Number(resp.data.total_price_solusi_rekomendasi).toLocaleString('id-ID')}
+                                            </span>
+                                        </div>
                                         <a href="${solusiRekomendasiUrl}" class="btn btn-outline-primary btn-sm">Lihat Rekomendasi</a>
                                     </div>
                                 </div>`;
                     }
 
-                    const hasilDiv = document.getElementById('hasil');
                     hasilDiv.innerHTML += html;
-                    hasilDiv.classList.remove('d-none');
                 })
                 .catch(err => {
-                    let msg = "Failed to add konsultasi.";
-                    if (err.errors) {
-                        msg = Object.values(err.errors).flat().join('\n');
-                    } else if (err.message) {
-                        msg = err.message;
-                    }
-                    alert(msg);
+                    let msg = "Mohon Maaf Data Tidak ditemukan, Berikan Kami masukan untuk perbaikan";
+                    hasilDiv.innerHTML += `<div class="alert alert-danger">${msg}</div>`;
                 })
                 .finally(() => {
                     saveBtn.disabled = false;

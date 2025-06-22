@@ -32,20 +32,63 @@ class KonsultasiController extends Controller
 
     public function ruleBased($categories = [])
     {
-        $rules = Rule::all();
-        foreach ($rules as $key => $rule) {
-            $ruleBased = $rule->categories->pluck('code')->toArray();
+        // Get all rules with their categories and solusi/solusiRekomendasi relations
+        $rules = Rule::with([
+            'categories',
+        ])
+            ->whereHas('categories', function ($query) use ($categories) {
+                $query->whereIn('code', $categories);
+            }, '>', 1)
+            ->get();
 
-            // Cari data yang ada di kedua array (intersection)
-            $matches = array_intersect($categories, $ruleBased);
-
-            // Hitung berapa yang match
-            $matchCount = count($matches);
-
-            if ($matchCount > 1) {
-                return $rule->with(['rsolusi','rsolusiRekomendasi'])->first();
+        foreach ($rules as $rule) {
+            // Calculate total price for solusi using DB raw if rsolusi exists
+            if ($rule->rsolusi) {
+                $ids = [
+                    $rule->rsolusi->motherboard,
+                    $rule->rsolusi->processor,
+                    $rule->rsolusi->ram,
+                    $rule->rsolusi->casing,
+                    $rule->rsolusi->storage_primary,
+                    $rule->rsolusi->storage_secondary,
+                    $rule->rsolusi->vga,
+                    $rule->rsolusi->psu,
+                    $rule->rsolusi->monitor,
+                ];
+                $ids = array_filter($ids); // Remove nulls
+                $rule->total_price_solusi = 0;
+                if (!empty($ids)) {
+                    $rule->total_price_solusi = \DB::table('components')
+                        ->whereIn('id', $ids)
+                        ->sum('price');
+                }
             }
+
+            // Calculate total price for solusi rekomendasi using DB raw if rsolusiRekomendasi exists
+            if ($rule->rsolusiRekomendasi) {
+                $ids = [
+                    $rule->rsolusiRekomendasi->motherboard,
+                    $rule->rsolusiRekomendasi->processor,
+                    $rule->rsolusiRekomendasi->ram,
+                    $rule->rsolusiRekomendasi->casing,
+                    $rule->rsolusiRekomendasi->storage_primary,
+                    $rule->rsolusiRekomendasi->storage_secondary,
+                    $rule->rsolusiRekomendasi->vga,
+                    $rule->rsolusiRekomendasi->psu,
+                    $rule->rsolusiRekomendasi->monitor,
+                ];
+                $ids = array_filter($ids); // Remove nulls
+                $rule->total_price_solusi_rekomendasi = 0;
+                if (!empty($ids)) {
+                    $rule->total_price_solusi_rekomendasi = \DB::table('components')
+                        ->whereIn('id', $ids)
+                        ->sum('price');
+                }
+            }
+
+            return $rule;
         }
+
         return null;
     }
 }
