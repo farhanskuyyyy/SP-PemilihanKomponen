@@ -43,7 +43,7 @@
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $components }}</div>
                         </div>
                         <div class="col-auto">
-                            <i class="bi bi-currency-dollar text-success" style="font-size: 2rem;"></i>
+                            <i class="bi bi-cpu text-success" style="font-size: 2rem;"></i>
                         </div>
                     </div>
                 </div>
@@ -61,7 +61,7 @@
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $rakitans }}</div>
                         </div>
                         <div class="col-auto">
-                            <i class="bi bi-cart text-info" style="font-size: 2rem;"></i>
+                            <i class="bi bi-pc-display text-info" style="font-size: 2rem;"></i>
                         </div>
                     </div>
                 </div>

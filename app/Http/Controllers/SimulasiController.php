@@ -12,21 +12,23 @@ class SimulasiController extends Controller
     {
         $rekomendasi = Rule::with(['rsolusi', 'rsolusiRekomendasi'])
             ->inRandomOrder()
-            ->first();
-        $rekomendasi2 = Rule::with(['rsolusi', 'rsolusiRekomendasi'])
-            ->inRandomOrder()
-            ->first();
+            ->limit(2)
+            ->get();
 
         if ($selectedRakitan = $request->id ?? null) {
             $selectedRakitan = Rakitan::find($selectedRakitan);
         }
-        return view('simulasi.index', compact('rekomendasi', 'rekomendasi2', 'selectedRakitan'));
+        $rakitanLists = Rakitan::where('created_by', auth()->user()->id)
+            ->orderBy('created_at', 'desc')
+            ->get();
+        return view('simulasi.index', compact('rekomendasi', 'selectedRakitan', 'rakitanLists'));
     }
 
     public function store(Request $request)
     {
         try {
             $validated = $request->validate([
+                'id'                => 'nullable|exists:rakitan,id',
                 'name'              => 'required|max:255',
                 'motherboard'       => 'required|exists:components,id',
                 'processor'         => 'required|exists:components,id',
@@ -39,11 +41,20 @@ class SimulasiController extends Controller
                 'monitor'           => 'required|exists:components,id',
             ]);
 
+            // If an ID is provided, update the existing Rakitan
+            if (isset($validated['id'])) {
+                $rakitan = Rakitan::find($validated['id']);
+                if ($rakitan && $rakitan->created_by == auth()->user()->id) {
+                    $rakitan->update($validated);
+                    return response()->json(['success' => true, 'message' => 'Rakitan updated successfully.', 'data' => $rakitan, 'url' => route('rakitan.print', ['code' => $rakitan->code])]);
+                }
+            }
+
             $validated['code'] = "SIMULASI" . auth()->user()->id . rand(1000, 9999);
             $validated['created_by'] = auth()->user()->id;
 
             $rakitan = Rakitan::create($validated);
-            return response()->json(['success' => true, 'message' => 'Rakitan created successfully.', 'data' => $rakitan]);
+            return response()->json(['success' => true, 'message' => 'Rakitan created successfully.', 'data' => $rakitan, 'url' => route('rakitan.print', ['code' => $rakitan->code])]);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'message' => 'Failed to create Rakitan.', 'error' => $e->getMessage()], 500);
         }

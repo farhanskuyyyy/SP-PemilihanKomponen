@@ -23,47 +23,47 @@ class Rakitan extends Model
         'created_by',
     ];
 
-    public function motherboard()
+    public function motherboardRelation()
     {
         return $this->belongsTo(Component::class, 'motherboard');
     }
 
-    public function processor()
+    public function processorRelation()
     {
         return $this->belongsTo(Component::class, 'processor');
     }
 
-    public function ram()
+    public function ramRelation()
     {
         return $this->belongsTo(Component::class, 'ram');
     }
 
-    public function casing()
+    public function casingRelation()
     {
         return $this->belongsTo(Component::class, 'casing');
     }
 
-    public function storagePrimary()
+    public function storagePrimaryRelation()
     {
         return $this->belongsTo(Component::class, 'storage_primary');
     }
 
-    public function storageSecondary()
+    public function storageSecondaryRelation()
     {
         return $this->belongsTo(Component::class, 'storage_secondary');
     }
 
-    public function vga()
+    public function vgaRelation()
     {
         return $this->belongsTo(Component::class, 'vga');
     }
 
-    public function psu()
+    public function psuRelation()
     {
         return $this->belongsTo(Component::class, 'psu');
     }
 
-    public function monitor()
+    public function monitorRelation()
     {
         return $this->belongsTo(Component::class, 'monitor');
     }

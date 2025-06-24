@@ -87,6 +87,8 @@
                     const solusiUrl = "{{ route('simulasi.index', ['id' => '__ID__']) }}".replace('__ID__', resp
                         .data
                         .solusi);
+                    const printUrl = "{{ route('rakitan.print', ['code' => '__CODE__']) }}".replace('__CODE__',
+                        resp.data.rsolusi.code);
                     let html = `
                         <div class="card border-primary">
                             <div class="card-header">
@@ -101,6 +103,7 @@
                                     </span>
                                 </div>
                                 <a href="${solusiUrl}" class="btn btn-outline-primary btn-sm">Lihat Rekomendasi</a>
+                                <a href="${printUrl}" target="_blank" class="btn btn-outline-warning btn-sm">Print</a>
                             </div>
                         </div>
                     `;
@@ -109,6 +112,9 @@
                     if (resp.data.solusi_rekomendasi) {
                         const solusiRekomendasiUrl = "{{ route('simulasi.index', ['id' => '__ID__']) }}"
                             .replace('__ID__', resp.data.solusi_rekomendasi);
+                        const printUrlRekomendasi = "{{ route('rakitan.print', ['code' => '__CODE__']) }}"
+                            .replace('__CODE__', resp.data.rsolusi_rekomendasi.code);
+
                         html += `
                                 <br>
                                 <div class="card border-primary">
@@ -124,6 +130,7 @@
                                             </span>
                                         </div>
                                         <a href="${solusiRekomendasiUrl}" class="btn btn-outline-primary btn-sm">Lihat Rekomendasi</a>
+                                        <a href="${printUrlRekomendasi}" target="_blank" class="btn btn-outline-warning btn-sm">Print</a>
                                     </div>
                                 </div>`;
                     }

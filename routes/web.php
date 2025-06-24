@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('category', \App\Http\Controllers\CategoryController::class);
 
     Route::get('rakitan/get-list', [\App\Http\Controllers\RakitanController::class, 'getDataList'])->name('rakitan.getDataList');
+    Route::get('rakitan/{code}/print', [\App\Http\Controllers\RakitanController::class, 'print'])->name('rakitan.print');
     Route::resource('rakitan', \App\Http\Controllers\RakitanController::class);
 
     Route::get('rule/get-list', [\App\Http\Controllers\RuleController::class, 'getDataList'])->name('rule.getDataList');

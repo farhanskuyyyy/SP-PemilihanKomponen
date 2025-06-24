@@ -98,19 +98,65 @@ class RakitanController extends Controller
     public function getDataList(Request $request)
     {
         $rakitans = Rakitan::with([
-            'motherboard',
-            'processor',
-            'ram',
-            'casing',
-            'storagePrimary',
-            'storageSecondary',
-            'vga',
-            'psu',
-            'monitor',
+            'motherboardRelation',
+            'processorRelation',
+            'ramRelation',
+            'casingRelation',
+            'storagePrimaryRelation',
+            'storageSecondaryRelation',
+            'vgaRelation',
+            'psuRelation',
+            'monitorRelation',
             'creator',
         ])->whereHas('creator', function ($q) {
             $q->where('role', 'admin');
-        })->get();
+        })->get()->map(function ($rakitan) {
+            $totalPrice = $rakitan->motherboardRelation->price +
+                $rakitan->processorRelation->price +
+                $rakitan->ramRelation->price +
+                $rakitan->casingRelation->price +
+                $rakitan->storagePrimaryRelation->price +
+                ($rakitan->storageSecondaryRelation ? $rakitan->storageSecondaryRelation->price : 0) +
+                $rakitan->vgaRelation->price +
+                $rakitan->psuRelation->price +
+                $rakitan->monitorRelation->price;
+
+            return [
+                'id' => $rakitan->id,
+                'code' => $rakitan->code,
+                'name' => $rakitan->name,
+                'motherboard' => $rakitan->motherboardRelation->name ?? '-',
+                'processor' => $rakitan->processorRelation->name ?? '-',
+                'ram' => $rakitan->ramRelation->name ?? '-',
+                'casing' => $rakitan->casingRelation->name ?? '-',
+                'storage_primary' => $rakitan->storagePrimaryRelation->name ?? '-',
+                'storage_secondary' => $rakitan->storageSecondaryRelation->name ?? '-',
+                'vga' => $rakitan->vgaRelation->name ?? '-',
+                'psu' => $rakitan->psuRelation->name ?? '-',
+                'monitor' => $rakitan->monitorRelation->name ?? '-',
+                'created_by' => $rakitan->creator ? $rakitan->creator->name : '-',
+                'total_price' => $totalPrice,
+                'created_at' => $rakitan->created_at,
+                'updated_at' => $rakitan->updated_at,
+            ];
+        });
         return response()->json(['data' => $rakitans]);
+    }
+
+
+    public function print(string $code)
+    {
+        $rakitan = Rakitan::with([
+            'motherboardRelation',
+            'processorRelation',
+            'ramRelation',
+            'casingRelation',
+            'storagePrimaryRelation',
+            'storageSecondaryRelation',
+            'vgaRelation',
+            'psuRelation',
+            'monitorRelation'
+        ])->where('code', $code)->firstOrFail();
+        return view('rakitan.print', compact('rakitan'));
     }
 }
