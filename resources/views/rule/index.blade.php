@@ -264,10 +264,13 @@
                         document.getElementById("editDescription").value = rule.description;
                         document.getElementById("editSolusi").value = rule.solusi.id;
                         document.getElementById("editSolusiRekomendasi").value = rule.solusi_rekomendasi ? rule
-                            .solusi_rekomendasi.code : "";
+                            .solusi_rekomendasi.id : "";
                         document.getElementById("editDescriptionRekomendasi").value = rule
                             .description_rekomendasi ?? '';
                         if (Array.isArray(rule.category_ids)) {
+                            document.querySelectorAll('input[name="categories[]"]').forEach(checkbox => {
+                                checkbox.checked = false; // Uncheck all first
+                            });
                             rule.category_ids.forEach(id => {
                                 const checkbox = document.getElementById(`edit_category_${id}`);
                                 if (checkbox) checkbox.checked = true;

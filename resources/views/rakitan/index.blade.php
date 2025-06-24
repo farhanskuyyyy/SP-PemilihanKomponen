@@ -291,7 +291,7 @@
                             const select = document.getElementById("edit" + comp.charAt(0)
                                 .toUpperCase() + comp.slice(1));
                             if (select) {
-                                select.value = rakitan[comp]?.id || "";
+                                select.value = rakitan[comp + "_relation"]?.id || "";
                             }
                         });
                         updateTotalHargaEdit();

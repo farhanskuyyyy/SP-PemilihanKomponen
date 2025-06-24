@@ -117,7 +117,7 @@ class RakitanController extends Controller
                 $rakitan->casingRelation->price +
                 $rakitan->storagePrimaryRelation->price +
                 ($rakitan->storageSecondaryRelation ? $rakitan->storageSecondaryRelation->price : 0) +
-                $rakitan->vgaRelation->price +
+                ($rakitan->vgaRelation ? $rakitan->vgaRelation->price : 0) +
                 $rakitan->psuRelation->price +
                 $rakitan->monitorRelation->price;
 
@@ -134,6 +134,15 @@ class RakitanController extends Controller
                 'vga' => $rakitan->vgaRelation->name ?? '-',
                 'psu' => $rakitan->psuRelation->name ?? '-',
                 'monitor' => $rakitan->monitorRelation->name ?? '-',
+                'motherboard_relation' => $rakitan->motherboardRelation,
+                'processor_relation' => $rakitan->processorRelation,
+                'ram_relation' => $rakitan->ramRelation,
+                'casing_relation' => $rakitan->casingRelation,
+                'storage_primary_relation' => $rakitan->storagePrimaryRelation,
+                'storage_secondary_relation' => $rakitan->storageSecondaryRelation,
+                'vga_relation' => $rakitan->vgaRelation,
+                'psu_relation' => $rakitan->psuRelation,
+                'monitor_relation' => $rakitan->monitorRelation,
                 'created_by' => $rakitan->creator ? $rakitan->creator->name : '-',
                 'total_price' => $totalPrice,
                 'created_at' => $rakitan->created_at,

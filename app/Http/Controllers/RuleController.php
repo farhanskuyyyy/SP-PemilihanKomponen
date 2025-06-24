@@ -94,7 +94,7 @@ class RuleController extends Controller
             'categories',
             'rsolusi',
             'rsolusiRekomendasi'
-        ])->get()->map(function ($rule) {
+        ])->orderBy('id','desc')->get()->map(function ($rule) {
             return [
                 'id' => $rule->id,
                 'description' => $rule->description,
