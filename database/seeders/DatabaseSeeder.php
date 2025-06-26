@@ -140,7 +140,7 @@ class DatabaseSeeder extends Seeder
         (7, 'RKT007', 'Gaming Mid AMD - 12 Juta', 3, 9, 13, 30, 18, 17, 20, 24, 26, 1, '2025-06-24 02:16:14', '2025-06-24 02:15:42'),
         (8, 'RKT008', 'Editing Mid AMD - 12 Juta', 3, 9, 14, 29, 18, 16, 20, 24, 26, 1, '2025-06-24 02:16:14', '2025-06-24 02:15:55'),
         (9, 'RKT009', 'Gaming High Intel - 15 Juta', 4, 10, 13, 30, 18, 17, 21, 24, 26, 1, '2025-06-24 02:16:14', '2025-06-24 02:16:14'),
-        (10, 'RKT010', 'Editing/Desain High Intel - 16 Juta', 4, 10, 14, 30, 18, 16, 21, 24, 26, 1, '2025-06-24 02:16:14', '2025-06-24 02:16:14');
+        (10, 'RKT010', 'Editing/Desain High Intel - 15 Juta', 4, 10, 14, 30, 18, 16, 21, 24, 26, 1, '2025-06-24 02:16:14', '2025-06-24 02:16:14');
         ");
 
         DB::statement("
@@ -152,9 +152,9 @@ class DatabaseSeeder extends Seeder
             (5, 'PC Gaming Entry AMD – 7 Juta, cocok untuk gamer pemula yang ingin bermain e-sports dan game populer dengan pengaturan menengah. Kombinasi Ryzen 3 4100 dan GTX 1650 sudah cukup bertenaga.', 5, 7, 'Jika ingin main game AAA atau editing lebih lancar, pertimbangkan upgrade ke “Gaming Mid AMD – 12 Juta” dengan VGA RX 6600 dan RAM lebih besar.', '2025-06-24 02:16:14', '2025-06-24 02:16:14'),
             (6, 'PC Gaming Entry Intel – 8 Juta, ideal untuk gamer kasual dan streaming ringan. Core i3-12100F dan GTX 1650 mampu jalankan e-sports dan game populer lancar.', 6, 9, 'Jika ingin pengalaman gaming AAA dan editing lebih nyaman, pertimbangkan “Gaming High Intel – 15 Juta” dengan VGA RTX 3060 dan RAM besar.', '2025-06-24 02:16:14', '2025-06-24 02:16:14'),
             (7, 'PC Gaming Mid AMD – 12 Juta, sudah kuat untuk game AAA, editing video, dan multitasking, berkat Ryzen 5 5600, RX 6600, serta RAM 16GB.', 7, 8, 'Jika sering editing video, desain, dan butuh RAM besar, bisa upgrade ke “Editing Mid AMD – 12 Juta” yang sudah memakai RAM 32GB.', '2025-06-24 02:16:14', '2025-06-24 02:16:14'),
-            (8, 'PC Editing Mid AMD – 12 Juta, siap kerja desain, editing video, serta gaming berat. Kombinasi Ryzen 5 5600, RX 6600, dan RAM 32GB sangat mendukung produktivitas.', 8, 10, 'Jika butuh performa maksimal dan gaming kelas atas, bisa upgrade ke “Editing/Desain High Intel – 16 Juta”.', '2025-06-24 02:16:14', '2025-06-24 02:16:14'),
-            (9, 'PC Gaming High Intel – 15 Juta, sangat cocok untuk gaming AAA, streaming, dan pekerjaan berat dengan Core i5-13400F dan RTX 3060.', 9, 10, 'Jika pekerjaan utama adalah editing dan desain kelas profesional, pilih “Editing/Desain High Intel – 16 Juta” dengan RAM dan storage lebih lega.', '2025-06-24 02:16:14', '2025-06-24 02:16:14'),
-            (10, 'PC Editing/Desain High Intel – 16 Juta, andalan untuk profesional editing, desain grafis, dan juga gaming berat. Kombinasi i5-13400F, RTX 3060, RAM 32GB, dan storage besar.', 10, 9, 'Jika ingin gaming berat namun dana ingin ditekan, “Gaming High Intel – 15 Juta” bisa jadi opsi terbaik.', '2025-06-24 02:16:14', '2025-06-24 02:16:14');
+            (8, 'PC Editing Mid AMD – 12 Juta, siap kerja desain, editing video, serta gaming berat. Kombinasi Ryzen 5 5600, RX 6600, dan RAM 32GB sangat mendukung produktivitas.', 8, 10, 'Jika butuh performa maksimal dan gaming kelas atas, bisa upgrade ke “Editing/Desain High Intel – 15 Juta”.', '2025-06-24 02:16:14', '2025-06-24 02:16:14'),
+            (9, 'PC Gaming High Intel – 15 Juta, sangat cocok untuk gaming AAA, streaming, dan pekerjaan berat dengan Core i5-13400F dan RTX 3060.', 9, 10, 'Jika pekerjaan utama adalah editing dan desain kelas profesional, pilih “Editing/Desain High Intel – 15 Juta” dengan RAM dan storage lebih lega.', '2025-06-24 02:16:14', '2025-06-24 02:16:14'),
+            (10, 'PC Editing/Desain High Intel – 15 Juta, andalan untuk profesional editing, desain grafis, dan juga gaming berat. Kombinasi i5-13400F, RTX 3060, RAM 32GB, dan storage besar.', 10, 9, 'Jika ingin gaming berat namun dana ingin ditekan, “Gaming High Intel – 15 Juta” bisa jadi opsi terbaik.', '2025-06-24 02:16:14', '2025-06-24 02:16:14');
         ");
 
         DB::statement("
