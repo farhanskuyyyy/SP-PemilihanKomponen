@@ -33,13 +33,14 @@ class KonsultasiController extends Controller
     public function ruleBased($categories = [])
     {
         // Get all rules with their categories and solusi/solusiRekomendasi relations
-        $rules = Rule::with([
-            'categories',
-        ])
-            ->whereHas('categories', function ($query) use ($categories) {
-                $query->whereIn('code', $categories);
-            }, '>', 1)
-            ->get();
+        // Ambil semua rule yang kategorinya persis sama dengan input user (jumlah & isi sama persis)
+        $rules = Rule::with(['categories'])
+            ->get()
+            ->filter(function ($rule) use ($categories) {
+                $ruleCategoryCodes = $rule->categories->pluck('code')->sort()->values()->all();
+                $inputCategoryCodes = collect($categories)->sort()->values()->all();
+                return $ruleCategoryCodes === $inputCategoryCodes;
+            });
 
         foreach ($rules as $rule) {
             // Calculate total price for solusi using DB raw if rsolusi exists
