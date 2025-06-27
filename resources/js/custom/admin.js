@@ -89,24 +89,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Handle window resize
-    window.addEventListener("resize", () => {
-        if (window.innerWidth >= 768) {
-            // Desktop mode - hide mobile overlay and reset mobile sidebar
-            sidebar.classList.remove("show");
-            sidebarOverlay.classList.remove("show");
-        } else {
-            // Mobile mode - reset collapsed state
-            if (sidebarCollapsed) {
-                sidebar.classList.remove("collapsed");
-                mainContent.classList.remove("sidebar-collapsed");
-                footer.classList.remove("sidebar-collapsed");
-                removeTooltips();
-                sidebarCollapsed = false;
-            }
-        }
-    });
-
     // Initialize other functionality
     initializeOtherFeatures();
 });
@@ -120,30 +102,6 @@ function initializeOtherFeatures() {
     var tooltipList = tooltipTriggerList.map(
         (tooltipTriggerEl) => new window.bootstrap.Tooltip(tooltipTriggerEl)
     );
-
-    // Simulate real-time data updates
-    function updateStats() {
-        const statsElements = document.querySelectorAll(
-            ".h5.mb-0.font-weight-bold"
-        );
-
-        statsElements.forEach((element) => {
-            const currentValue = Number.parseInt(
-                element.textContent.replace(/[^0-9]/g, "")
-            );
-            const change = Math.floor(Math.random() * 10) - 5;
-            const newValue = Math.max(0, currentValue + change);
-
-            if (element.textContent.includes("$")) {
-                element.textContent = "$" + newValue.toLocaleString();
-            } else {
-                element.textContent = newValue.toLocaleString();
-            }
-        });
-    }
-
-    // Update stats every 30 seconds
-    setInterval(updateStats, 30000);
 
     // Add loading animation to buttons
     //   const actionButtons = document.querySelectorAll(".card-body .btn")

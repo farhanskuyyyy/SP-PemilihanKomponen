@@ -82,40 +82,84 @@
                     return res.json();
                 })
                 .then(resp => {
-                    // alert("Konsultasi added successfully!");
-                    // URL rekomendasi utama
-                    const solusiUrl = "{{ route('simulasi.index', ['id' => '__ID__']) }}".replace('__ID__', resp
-                        .data
-                        .solusi);
-                    const printUrl = "{{ route('rakitan.print', ['code' => '__CODE__']) }}".replace('__CODE__',
-                        resp.data.rsolusi.code);
-                    let html = `
-                        <div class="card border-primary">
-                            <div class="card-header">
-                                <h5 class="card-title">Hasil Konsultasi</h5>
-                            </div>
-                            <div class="card-body">
-                                <h6 class="card-title">${resp.data.rsolusi.name}</h6>
-                                <p class="card-text">${resp.data.description}</p>
-                                <div class="mb-2">
-                                     <span class="badge bg-info text-dark">
-                                        Total Harga: Rp ${Number(resp.data.total_price_solusi).toLocaleString('id-ID')}
-                                    </span>
+                    // Jika resp.data adalah array, lakukan foreach untuk setiap solusi
+                    let html = '';
+                    if (Array.isArray(resp.data)) {
+                        resp.data.forEach(function(item) {
+                            const solusiUrl = "{{ route('simulasi.index', ['id' => '__ID__']) }}".replace('__ID__', item.solusi);
+                            const printUrl = "{{ route('rakitan.print', ['code' => '__CODE__']) }}".replace('__CODE__', item.rsolusi.code);
+                            html += `
+                                <div class="card border-primary mb-3">
+                                    <div class="card-header">
+                                        <h5 class="card-title">Hasil Konsultasi</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <h6 class="card-title">${item.rsolusi.name}</h6>
+                                        <p class="card-text">${item.description}</p>
+                                        <div class="mb-2">
+                                            <span class="badge bg-info text-dark">
+                                                Total Harga: Rp ${Number(item.total_price_solusi).toLocaleString('id-ID')}
+                                            </span>
+                                        </div>
+                                        <a href="${solusiUrl}" class="btn btn-outline-primary btn-sm">Lihat Rekomendasi</a>
+                                        <a href="${printUrl}" target="_blank" class="btn btn-outline-warning btn-sm">Print</a>
+                                    </div>
                                 </div>
-                                <a href="${solusiUrl}" class="btn btn-outline-primary btn-sm">Lihat Rekomendasi</a>
-                                <a href="${printUrl}" target="_blank" class="btn btn-outline-warning btn-sm">Print</a>
-                            </div>
-                        </div>
-                    `;
+                            `;
 
-                    // Jika ada solusi rekomendasi tambahan
-                    if (resp.data.solusi_rekomendasi) {
-                        const solusiRekomendasiUrl = "{{ route('simulasi.index', ['id' => '__ID__']) }}"
-                            .replace('__ID__', resp.data.solusi_rekomendasi);
-                        const printUrlRekomendasi = "{{ route('rakitan.print', ['code' => '__CODE__']) }}"
-                            .replace('__CODE__', resp.data.rsolusi_rekomendasi.code);
+                            // Jika ada solusi rekomendasi tambahan
+                            if (item.solusi_rekomendasi) {
+                                const solusiRekomendasiUrl = "{{ route('simulasi.index', ['id' => '__ID__']) }}".replace('__ID__', item.solusi_rekomendasi);
+                                const printUrlRekomendasi = "{{ route('rakitan.print', ['code' => '__CODE__']) }}".replace('__CODE__', item.rsolusi_rekomendasi.code);
 
+                                html += `
+                                    <div class="card border-primary mb-3">
+                                        <div class="card-header">
+                                            <h5 class="card-title">Rekomendasi Lainnya</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <h6 class="card-title">${item.rsolusi_rekomendasi.name}</h6>
+                                            <p class="card-text">${item.description_rekomendasi}</p>
+                                            <div class="mb-2">
+                                                <span class="badge bg-info text-dark">
+                                                    Total Harga: Rp ${Number(item.total_price_solusi_rekomendasi).toLocaleString('id-ID')}
+                                                </span>
+                                            </div>
+                                            <a href="${solusiRekomendasiUrl}" class="btn btn-outline-primary btn-sm">Lihat Rekomendasi</a>
+                                            <a href="${printUrlRekomendasi}" target="_blank" class="btn btn-outline-warning btn-sm">Print</a>
+                                        </div>
+                                    </div>
+                                `;
+                            }
+                        });
+                    } else {
+                        // fallback jika resp.data bukan array (tetap support struktur lama)
+                        const solusiUrl = "{{ route('simulasi.index', ['id' => '__ID__']) }}".replace('__ID__', resp.data.solusi);
+                        const printUrl = "{{ route('rakitan.print', ['code' => '__CODE__']) }}".replace('__CODE__', resp.data.rsolusi.code);
                         html += `
+                            <div class="card border-primary">
+                                <div class="card-header">
+                                    <h5 class="card-title">Hasil Konsultasi</h5>
+                                </div>
+                                <div class="card-body">
+                                    <h6 class="card-title">${resp.data.rsolusi.name}</h6>
+                                    <p class="card-text">${resp.data.description}</p>
+                                    <div class="mb-2">
+                                        <span class="badge bg-info text-dark">
+                                            Total Harga: Rp ${Number(resp.data.total_price_solusi).toLocaleString('id-ID')}
+                                        </span>
+                                    </div>
+                                    <a href="${solusiUrl}" class="btn btn-outline-primary btn-sm">Lihat Rekomendasi</a>
+                                    <a href="${printUrl}" target="_blank" class="btn btn-outline-warning btn-sm">Print</a>
+                                </div>
+                            </div>
+                        `;
+
+                        if (resp.data.solusi_rekomendasi) {
+                            const solusiRekomendasiUrl = "{{ route('simulasi.index', ['id' => '__ID__']) }}".replace('__ID__', resp.data.solusi_rekomendasi);
+                            const printUrlRekomendasi = "{{ route('rakitan.print', ['code' => '__CODE__']) }}".replace('__CODE__', resp.data.rsolusi_rekomendasi.code);
+
+                            html += `
                                 <br>
                                 <div class="card border-primary">
                                     <div class="card-header">
@@ -133,6 +177,7 @@
                                         <a href="${printUrlRekomendasi}" target="_blank" class="btn btn-outline-warning btn-sm">Print</a>
                                     </div>
                                 </div>`;
+                        }
                     }
 
                     hasilDiv.innerHTML += html;

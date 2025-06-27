@@ -32,7 +32,6 @@ class KonsultasiController extends Controller
 
     public function ruleBased($categories = [])
     {
-        // Get all rules with their categories and solusi/solusiRekomendasi relations
         // Ambil semua rule yang kategorinya persis sama dengan input user (jumlah & isi sama persis)
         $rules = Rule::with(['categories'])
             ->get()
@@ -42,6 +41,10 @@ class KonsultasiController extends Controller
                 return $ruleCategoryCodes === $inputCategoryCodes;
             });
 
+        if ($rules->isEmpty()) {
+            return null; // Tidak ada rule yang cocok
+        }
+        $result = [];
         foreach ($rules as $rule) {
             // Calculate total price for solusi using DB raw if rsolusi exists
             if ($rule->rsolusi) {
@@ -86,10 +89,9 @@ class KonsultasiController extends Controller
                         ->sum('price');
                 }
             }
-
-            return $rule;
+            $result[] = $rule;
         }
 
-        return null;
+        return $result;
     }
 }
