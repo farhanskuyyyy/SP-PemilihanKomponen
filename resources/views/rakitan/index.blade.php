@@ -252,8 +252,8 @@
                 tr.innerHTML = `
                 <td>${idx + 1}</td>
                 <td>${rakitan.code}</td>
-                <td>${rakitan.total_price ? 'Rp ' + Number(rakitan.total_price).toLocaleString('id-ID') : '-'}</td>
                 <td>${rakitan.name}</td>
+                <td>${rakitan.total_price ? 'Rp ' + Number(rakitan.total_price).toLocaleString('id-ID') : '-'}</td>
                 <td>${rakitan.motherboard}</td>
                 <td>${rakitan.processor}</td>
                 <td>${rakitan.ram}</td>
